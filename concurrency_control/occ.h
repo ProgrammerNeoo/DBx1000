@@ -2,11 +2,11 @@
 
 #include "row.h"
 
-// TODO For simplicity, the txn hisotry for OCC is oganized as follows:
+// TODO For simplicity, the txn hisotry for OCC is organized as follows:
 // 1. history is never deleted.
 // 2. hisotry forms a single directional list. 
 //		history head -> hist_1 -> hist_2 -> hist_3 -> ... -> hist_n
-//    The head is always the latest and the tail the youngest. 
+//    The head is always the latest and the tail the oldest. 
 // 	  When history is traversed, always go from head -> tail order.
 
 class txn_man;
