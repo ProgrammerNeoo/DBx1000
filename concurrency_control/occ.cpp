@@ -40,8 +40,7 @@ OptCC::per_row_validate(txn_man * txn) {
 	// TODO for migration, should first sort by partition id
 	for (int i = txn->row_cnt - 1; i > 0; i--) {
 		for (int j = 0; j < i; j ++) {
-			int tabcmp = strcmp(txn->accesses[j]->orig_row->get_table_name(), 
-			txn->accesses[j+1]->orig_row->get_table_name());
+			int tabcmp = strcmp(txn->accesses[j]->orig_row->get_table_name(), txn->accesses[j+1]->orig_row->get_table_name());
 			if (tabcmp > 0 || (tabcmp == 0 && txn->accesses[j]->orig_row->get_primary_key() > txn->accesses[j+1]->orig_row->get_primary_key())) {
 				Access * tmp = txn->accesses[j]; 
 				txn->accesses[j] = txn->accesses[j+1];
