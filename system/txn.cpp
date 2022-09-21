@@ -141,8 +141,8 @@ row_t * txn_man::get_row(row_t * row, access_t type) {
 		num_accesses_alloc ++;
 	}
 	
+	// this->access[row_cnt]->data := row->manager->_row
 	rc = row->get_row(type, this, accesses[ row_cnt ]->data);
-
 
 	if (rc == Abort) {
 		return NULL;
