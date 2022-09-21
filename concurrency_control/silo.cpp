@@ -8,7 +8,8 @@ RC
 txn_man::validate_silo()
 {
 	RC rc = RCOK;
-	// lock write tuples in the primary key order.
+	
+	// Get the read set and the write set.
 	int write_set[wr_cnt];
 	int cur_wr_idx = 0;
 	int read_set[row_cnt - wr_cnt];
@@ -20,7 +21,7 @@ txn_man::validate_silo()
 			read_set[cur_rd_idx ++] = rid;
 	}
 
-	// bubble sort the write_set, in primary key order 
+	// Bubble sort the write set in primary key order.
 	for (int i = wr_cnt - 1; i >= 1; i--) {
 		for (int j = 0; j < i; j++) {
 			if (accesses[ write_set[j] ]->orig_row->get_primary_key() > 
@@ -37,6 +38,9 @@ txn_man::validate_silo()
 	ts_t max_tid = 0;
 	bool done = false;
 	if (_pre_abort) {
+		// Early abort a transaction if any tuple in the read set or the write set
+		// has been modified by other transactions.
+		// Why check the write set?
 		for (int i = 0; i < wr_cnt; i++) {
 			row_t * row = accesses[ write_set[i] ]->orig_row;
 			if (row->manager->get_tid() != accesses[write_set[i]]->tid) {
@@ -53,7 +57,7 @@ txn_man::validate_silo()
 		}
 	}
 
-	// lock all rows in the write set.
+	// Lock all rows in the write set.
 	if (_validation_no_wait) {
 		while (!done) {
 			num_locks = 0;

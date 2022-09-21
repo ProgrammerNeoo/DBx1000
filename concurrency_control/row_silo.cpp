@@ -26,6 +26,7 @@ Row_silo::access(txn_man * txn, TsType type, row_t * local_row) {
 	while (v2 != v) {
 		v = _tid_word;
 		while (v & LOCK_BIT) {
+			// Use PAUSE to reduce the overhead of spin-wait.
 			PAUSE
 			v = _tid_word;
 		}
@@ -47,9 +48,13 @@ bool
 Row_silo::validate(ts_t tid, bool in_write_set) {
 #if ATOMIC_WORD
 	uint64_t v = _tid_word;
+	// If the row is in both read set and write set, then just validate
+	// whether the row has been changed since last read by the transaction.
 	if (in_write_set)
 		return tid == (v & (~LOCK_BIT));
 
+	// If the row is only in read set, then validate whether the row has been
+	// changed or locked since last read by the transaction.
 	if (v & LOCK_BIT) 
 		return false;
 	else if (tid != (v & (~LOCK_BIT)))
@@ -72,6 +77,10 @@ Row_silo::write(row_t * data, uint64_t tid) {
 	_row->copy(data);
 #if ATOMIC_WORD
 	uint64_t v = _tid_word;
+	// Here two things need to be guaranteed. The first is that the writing transaction
+	// must have a tid word bigger than the tid word of the row. The second is that
+	// the row is currently locked. If so, the tid word of this row gets updated to that
+	// of the transaction with the lock bit set.
 	M_ASSERT(tid > (v & (~LOCK_BIT)) && (v & LOCK_BIT), "tid=%ld, v & LOCK_BIT=%ld, v & (~LOCK_BIT)=%ld\n", tid, (v & LOCK_BIT), (v & (~LOCK_BIT)));
 	_tid_word = (tid | LOCK_BIT); 
 #else
