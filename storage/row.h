@@ -83,23 +83,23 @@ public:
 	RC get_row(access_t type, txn_man * txn, row_t *& row);
 	void return_row(access_t type, txn_man * txn, row_t * row);
 	
-  #if CC_ALG == DL_DETECT || CC_ALG == NO_WAIT || CC_ALG == WAIT_DIE
+#if CC_ALG == DL_DETECT || CC_ALG == NO_WAIT || CC_ALG == WAIT_DIE
     Row_lock * manager;
-  #elif CC_ALG == TIMESTAMP
+#elif CC_ALG == TIMESTAMP
    	Row_ts * manager;
-  #elif CC_ALG == MVCC
+#elif CC_ALG == MVCC
   	Row_mvcc * manager;
-  #elif CC_ALG == HEKATON
+#elif CC_ALG == HEKATON
   	Row_hekaton * manager;
-  #elif CC_ALG == OCC
+#elif CC_ALG == OCC
   	Row_occ * manager;
-  #elif CC_ALG == TICTOC
+#elif CC_ALG == TICTOC
   	Row_tictoc * manager;
-  #elif CC_ALG == SILO
+#elif CC_ALG == SILO
   	Row_silo * manager;
-  #elif CC_ALG == VLL
+#elif CC_ALG == VLL
   	Row_vll * manager;
-  #endif
+#endif
 	char * data;
 	table_t * table;
 private:

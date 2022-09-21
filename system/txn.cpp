@@ -91,8 +91,10 @@ void txn_man::cleanup(RC rc) {
 					CC_ALG == NO_WAIT || 
 					CC_ALG == WAIT_DIE)) 
 		{
+			// If the transaction needs to rollback, then restore the original data of the row
 			orig_r->return_row(type, this, accesses[rid]->orig_data);
 		} else {
+			// If the transaction commits, then store the modified data of the row
 			orig_r->return_row(type, this, accesses[rid]->data);
 		}
 #if CC_ALG != TICTOC && CC_ALG != SILO
