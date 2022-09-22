@@ -36,7 +36,7 @@ RC
 OptCC::per_row_validate(txn_man * txn) {
 	RC rc = RCOK;
 #if CC_ALG == OCC
-	// sort all rows accessed in primary key order.
+	// Sort all rows accessed in primary key order.
 	// TODO for migration, should first sort by partition id
 	for (int i = txn->row_cnt - 1; i > 0; i--) {
 		for (int j = 0; j < i; j ++) {
@@ -56,8 +56,8 @@ OptCC::per_row_validate(txn_man * txn) {
 		txn->accesses[i-1]->orig_row->get_primary_key());
 	}
 #endif
-	// lock all rows in the readset and writeset.
-	// Validate each access
+	// Lock all rows in the readset and writeset.
+	// Validate each access.
 	bool ok = true;
 	int lock_cnt = 0;
 	for (int i = 0; i < txn->row_cnt && ok; i++) {
@@ -67,9 +67,9 @@ OptCC::per_row_validate(txn_man * txn) {
 	}
 	if (ok) {
 		// Validation passed.
-		// advance the global timestamp and get the end_ts
+		// Advance the global timestamp and get the end_ts.
 		txn->end_ts = glob_manager->get_ts( txn->get_thd_id() );
-		// write to each row and update wts
+		// Write to each row and update wts.
 		txn->cleanup(RCOK);
 		rc = RCOK;
 	} else {

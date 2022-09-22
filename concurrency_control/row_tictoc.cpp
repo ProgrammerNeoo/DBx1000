@@ -22,7 +22,9 @@ Row_tictoc::init(row_t * row)
 	_hist_wts = 0;
 #endif
 }
-	
+
+/* This function accesses (reads or writes) the row and stores row data
+   in local_row */
 RC
 Row_tictoc::access(txn_man * txn, TsType type, row_t * local_row)
 {
@@ -61,6 +63,7 @@ Row_tictoc::access(txn_man * txn, TsType type, row_t * local_row)
 	return RCOK;
 }
 
+/* This function writes data to the row at write timestamp wts. */
 void 
 Row_tictoc::write_data(row_t * data, ts_t wts)
 {
@@ -72,7 +75,9 @@ Row_tictoc::write_data(row_t * data, ts_t wts)
   #if WRITE_PERMISSION_LOCK
 	assert(__sync_bool_compare_and_swap(&_ts_word, v, v | LOCK_BIT));
   #endif
-  	v &= ~(RTS_MASK | WTS_MASK); // clear wts and rts.
+	// Clear original wts and rts of the written row.
+  	v &= ~(RTS_MASK | WTS_MASK);
+	// Assign both wts and rts to be the given wts.
 	v |= wts;
 	_ts_word = v;
 	_row->copy(data);
@@ -105,6 +110,12 @@ Row_tictoc::renew_lease(ts_t wts, ts_t rts)
 	return true;
 }
 
+/* This function tries to extend the rts of the row. wts corresponds to the
+row version read by the transaction. rts is the extending target. If the rts
+of the row has already been extended, then return true. If the row has been
+modified by other transactions, return false. Else, extend the current rts
+of the row and return true. When extending rts, overflow needs to be taken
+care of. */
 bool 
 Row_tictoc::try_renew(ts_t wts, ts_t rts, ts_t &new_rts, uint64_t thd_id)
 {	
@@ -131,22 +142,35 @@ Row_tictoc::try_renew(ts_t wts, ts_t rts, ts_t &new_rts, uint64_t thd_id)
   #endif
 
 	ts_t delta_rts = rts - wts;
-	if (delta_rts < ((v & RTS_MASK) >> WTS_LEN)) // the rts has already been extended.
+	// The rts has already been extended.
+	if (delta_rts < ((v & RTS_MASK) >> WTS_LEN))
 		return true;
+	
 	bool rebase = false;
 	if (delta_rts >= (1 << RTS_LEN)) {
+		// Delta overflow. wts needs to be advanced to accommodate the new
+		// delta. This is equivalent to a redundant write to the row.
 		rebase = true;
 		uint64_t delta = (delta_rts & ~((1 << RTS_LEN) - 1));
 		delta_rts &= ((1 << RTS_LEN) - 1);
 		wts += delta;
 	}
+
+	// The newly generated ts_word is stored in v2, whether rebase or not.
 	uint64_t v2 = 0;
 	v2 |= wts;
 	v2 |= (delta_rts << WTS_LEN);
 	while (true) {
+		// Check whether the ts word of the row is modified.
 		uint64_t pre_v = __sync_val_compare_and_swap(&_ts_word, v, v2);
+		// CAS success, return true.
 		if (pre_v == v)
 			return true;
+		// ts word of the row is modified, meaning that there are other
+		// transactions accessing this row simultaneously. If rebase, return
+		// false. If the row is locked, return false. If the wts has been
+		// changed, return false. If the rts of the row is extended to cover
+		// the given rts, no need to change anything, just return true.
 		v = pre_v;
 		if (rebase || (v & lock_mask) || (wts != (v & WTS_MASK)))
 			return false;
@@ -239,7 +263,8 @@ Row_tictoc::try_lock()
 #if ATOMIC_WORD
 	uint64_t lock_mask = (WRITE_PERMISSION_LOCK)? WRITE_BIT : LOCK_BIT;
 	uint64_t v = _ts_word;
-	if (v & lock_mask) // already locked
+	// Already locked
+	if (v & lock_mask)
 		return false;
 	return __sync_bool_compare_and_swap(&_ts_word, v, v | lock_mask);
 #else

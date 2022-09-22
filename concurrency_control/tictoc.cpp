@@ -9,6 +9,8 @@ RC
 txn_man::validate_tictoc()
 {
 	RC rc = RCOK;
+
+	// Get the read set and the write set.
 	int write_set[wr_cnt];
 	int read_set[row_cnt - wr_cnt];
 	int cur_rd_idx = 0;
@@ -19,8 +21,9 @@ txn_man::validate_tictoc()
 		else 
 			read_set[cur_rd_idx ++] = rid;
 	}
+
 #if WR_VALIDATION_SEPARATE 
-	// bubble sort the write_set, in primary key order 
+	// Bubble sort the write_set in primary key order 
 	for (int i = wr_cnt - 1; i >= 1; i--) {
 		for (int j = 0; j < i; j++) {
 			if (accesses[ write_set[j] ]->orig_row->get_primary_key() > 
@@ -49,6 +52,8 @@ txn_man::validate_tictoc()
 		}
 	}
 #endif
+	// Traverse accesses to compute commit_rts and commit_wts. For serializable
+	// isolation level, one commit timestamp is enough.
 	int num_locks = 0;
 	ts_t commit_rts = 0;
 	ts_t commit_wts = 0;
@@ -69,6 +74,9 @@ txn_man::validate_tictoc()
 #if WR_VALIDATION_SEPARATE 
 	bool done = false;
 #endif
+	// Before locking all rows in the write set, perform an early abort check
+	// tocheck whether rows in the read set and the write set has already been
+	// modified by other transactions. If so, early abort the transaction.
 	if (_pre_abort) {
 		for (int i = 0; i < wr_cnt; i++) {
 			row_t * row = accesses[ write_set[i] ]->orig_row;
@@ -149,7 +157,8 @@ txn_man::validate_tictoc()
 			}
 		}
 	} 
-	else { // _validation_no_wait = false
+	else {
+		// _validation_no_wait = false
 		for (int i = 0; i < wr_cnt; i++) {
 			row_t * row = accesses[ write_set[i] ]->orig_row;
 			row->manager->lock();
