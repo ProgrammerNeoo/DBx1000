@@ -1,0 +1,25 @@
+mem_allocator initialized!
+reading schema file: ./benchmarks/TPCC_full_schema.txt
+TPCC schema initialized
+TPCC Data Initialization Complete!
+workload initialized!
+Query Queue Init Time 0.725732
+query_queue initialized!
+PASS! SimTime = 1018164888
+[tid=0] txn_cnt=56656,abort_cnt=0
+[tid=1] txn_cnt=59861,abort_cnt=5
+[tid=2] txn_cnt=69726,abort_cnt=2
+[tid=3] txn_cnt=78898,abort_cnt=2
+[tid=4] txn_cnt=67015,abort_cnt=0
+[tid=5] txn_cnt=82837,abort_cnt=0
+[tid=6] txn_cnt=74463,abort_cnt=0
+[tid=7] txn_cnt=72353,abort_cnt=2
+[tid=8] txn_cnt=86297,abort_cnt=5
+[tid=9] txn_cnt=70680,abort_cnt=3
+[tid=10] txn_cnt=100000,abort_cnt=6
+[tid=11] txn_cnt=85567,abort_cnt=1
+[tid=12] txn_cnt=61593,abort_cnt=1
+[tid=13] txn_cnt=70577,abort_cnt=3
+[tid=14] txn_cnt=69393,abort_cnt=0
+[tid=15] txn_cnt=84587,abort_cnt=3
+[summary] txn_cnt=1190503, abort_cnt=33, run_time=16.245509, time_wait=0.000000, time_ts_alloc=0.000000, time_man=6.930926, time_index=3.327650, time_abort=0.000442, time_cleanup=1.027897, latency=0.000014, deadlock_cnt=0, cycle_detect=0, dl_detect_time=0.000000, dl_wait_time=0.000000, time_query=0.030499, debug1=0.000000, debug2=0.000000, debug3=0.000000, debug4=0.000000, debug5=0.000000

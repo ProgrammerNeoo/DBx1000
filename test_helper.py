@@ -15,8 +15,9 @@ theta_list = [round(x, 2) for x in list(np.arange(0.5, 1, 0.05))]
 # Plot setting.
 figure_folder = 'test_figure'
 
-cc_list = ['DL_DETECT', 'TIMESTAMP', 'NO_WAIT', 'WAIT_DIE', 'MVCC', 'HEKATON',
-            'SILO', 'VLL', 'OCC', 'HSTORE', 'TICTOC']
+# Timestamp and VLL does not work for now.
+cc_list = ['DL_DETECT', 'NO_WAIT', 'WAIT_DIE', 'MVCC', 'HEKATON', 'SILO',
+            'OCC', 'HSTORE', 'TICTOC']
 
 def replace(filename, pattern, replacement):
     f = open(filename)

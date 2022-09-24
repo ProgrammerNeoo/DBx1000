@@ -37,18 +37,19 @@ def plot_tpcc():
             f = open(file, 'r')
             for line in f:
                 if '[summary]' in line:
-                    # Get throughput, txn_cnt and abort_cnt from the summary line.
+                    # Get txn_cnt, abort_cnt and run_time from the summary line.
                     idx = line.find('=') + 1
                     commaidx = line.find(',', idx)
-                    throughput = float(line[idx:commaidx])
-                    idx = line.find('=', commaidx) + 2
-                    commaidx = line.find(',', idx)
                     txn_cnt = float(line[idx:commaidx])
-                    idx = line.find('=', commaidx) + 2
+                    idx = line.find('=', commaidx) + 1
                     commaidx = line.find(',', idx)
                     abort_cnt = float(line[idx:commaidx])
+                    idx = line.find('=', commaidx) + 1
+                    commaidx = line.find(',', idx)
+                    run_time = float(line[idx:commaidx])
 
-                    # Compute abort rate.
+                    # Compute throughput and abort rate.
+                    throughput = txn_cnt / run_time * 1e6 * thread
                     abort_rate = abort_cnt / (txn_cnt + abort_cnt)
 
                     # Store throughput and abort_rate in res.
@@ -102,18 +103,19 @@ def plot_ycsb():
             f = open(file, 'r')
             for line in f:
                 if '[summary]' in line:
-                    # Get throughput, txn_cnt and abort_cnt from the summary line.
+                    # Get txn_cnt, abort_cnt and run_time from the summary line.
                     idx = line.find('=') + 1
                     commaidx = line.find(',', idx)
-                    throughput = float(line[idx:commaidx])
-                    idx = line.find('=', commaidx) + 2
-                    commaidx = line.find(',', idx)
                     txn_cnt = float(line[idx:commaidx])
-                    idx = line.find('=', commaidx) + 2
+                    idx = line.find('=', commaidx) + 1
                     commaidx = line.find(',', idx)
                     abort_cnt = float(line[idx:commaidx])
+                    idx = line.find('=', commaidx) + 1
+                    commaidx = line.find(',', idx)
+                    run_time = float(line[idx:commaidx])
 
-                    # Compute abort rate.
+                    # Compute throughput and abort rate.
+                    throughput = txn_cnt / run_time * 1e6 * thread
                     abort_rate = abort_cnt / (txn_cnt + abort_cnt)
 
                     # Store throughput and abort_rate in res.
