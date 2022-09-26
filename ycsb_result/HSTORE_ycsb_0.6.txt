@@ -1,8 +1,8 @@
 mem_allocator initialized!
 workload initialized!
-Query Queue Init Time 0.571666
+Query Queue Init Time 0.667679
 query_queue initialized!
-PASS! SimTime = 20234374448
+PASS! SimTime = 20526002340
 [tid=0] txn_cnt=100000,abort_cnt=0
 [tid=1] txn_cnt=100000,abort_cnt=0
 [tid=2] txn_cnt=100000,abort_cnt=0
@@ -10,13 +10,13 @@ PASS! SimTime = 20234374448
 [tid=4] txn_cnt=100000,abort_cnt=0
 [tid=5] txn_cnt=100000,abort_cnt=0
 [tid=6] txn_cnt=100000,abort_cnt=0
-[tid=7] txn_cnt=99999,abort_cnt=0
+[tid=7] txn_cnt=100000,abort_cnt=0
 [tid=8] txn_cnt=100000,abort_cnt=0
 [tid=9] txn_cnt=100000,abort_cnt=0
 [tid=10] txn_cnt=100000,abort_cnt=0
 [tid=11] txn_cnt=100000,abort_cnt=0
 [tid=12] txn_cnt=100000,abort_cnt=0
-[tid=13] txn_cnt=100000,abort_cnt=0
+[tid=13] txn_cnt=99999,abort_cnt=0
 [tid=14] txn_cnt=100000,abort_cnt=0
 [tid=15] txn_cnt=100000,abort_cnt=0
-[summary] txn_cnt=1599999, abort_cnt=0, run_time=323.709642, time_wait=303.241800, time_ts_alloc=0.165835, time_man=1.041364, time_index=6.099152, time_abort=0.000000, time_cleanup=0.000000, latency=0.000202, deadlock_cnt=0, cycle_detect=0, dl_detect_time=0.000000, dl_wait_time=0.000000, time_query=0.048584, debug1=0.000000, debug2=0.000000, debug3=0.000000, debug4=0.000000, debug5=0.000000
+[summary] txn_cnt=1599999, abort_cnt=0, run_time=328.352242, time_wait=308.043494, time_ts_alloc=0.138707, time_man=1.015735, time_index=3.850301, time_abort=0.000000, time_cleanup=0.000000, latency=0.000205, deadlock_cnt=0, cycle_detect=0, dl_detect_time=0.000000, dl_wait_time=0.000000, time_query=0.053745, debug1=0.000000, debug2=0.000000, debug3=0.000000, debug4=0.000000, debug5=0.000000

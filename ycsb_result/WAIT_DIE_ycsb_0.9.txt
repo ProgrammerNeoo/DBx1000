@@ -1,22 +1,22 @@
 mem_allocator initialized!
 workload initialized!
-Query Queue Init Time 0.525560
+Query Queue Init Time 0.705045
 query_queue initialized!
-PASS! SimTime = 1716669452
-[tid=0] txn_cnt=87232,abort_cnt=35435
-[tid=1] txn_cnt=84654,abort_cnt=33176
-[tid=2] txn_cnt=95912,abort_cnt=41689
-[tid=3] txn_cnt=95430,abort_cnt=40744
-[tid=4] txn_cnt=84759,abort_cnt=34009
-[tid=5] txn_cnt=84435,abort_cnt=34249
-[tid=6] txn_cnt=84963,abort_cnt=34272
-[tid=7] txn_cnt=92756,abort_cnt=39778
-[tid=8] txn_cnt=98128,abort_cnt=42880
-[tid=9] txn_cnt=88118,abort_cnt=36064
-[tid=10] txn_cnt=100000,abort_cnt=44731
-[tid=11] txn_cnt=84941,abort_cnt=34064
-[tid=12] txn_cnt=98567,abort_cnt=43341
-[tid=13] txn_cnt=88642,abort_cnt=36951
-[tid=14] txn_cnt=86994,abort_cnt=35400
-[tid=15] txn_cnt=92787,abort_cnt=39302
-[summary] txn_cnt=1448318, abort_cnt=606085, run_time=27.334718, time_wait=3.650184, time_ts_alloc=0.154267, time_man=12.546371, time_index=1.221021, time_abort=3.276496, time_cleanup=2.749784, latency=0.000019, deadlock_cnt=0, cycle_detect=0, dl_detect_time=0.000000, dl_wait_time=0.000000, time_query=0.306476, debug1=0.000000, debug2=0.000000, debug3=0.000000, debug4=0.000000, debug5=0.000000
+PASS! SimTime = 2397544680
+[tid=0] txn_cnt=99173,abort_cnt=60196
+[tid=1] txn_cnt=98640,abort_cnt=60011
+[tid=2] txn_cnt=97710,abort_cnt=58698
+[tid=3] txn_cnt=98258,abort_cnt=64104
+[tid=4] txn_cnt=95344,abort_cnt=52975
+[tid=5] txn_cnt=97498,abort_cnt=56482
+[tid=6] txn_cnt=98841,abort_cnt=59780
+[tid=7] txn_cnt=98051,abort_cnt=58282
+[tid=8] txn_cnt=98805,abort_cnt=56137
+[tid=9] txn_cnt=98361,abort_cnt=56895
+[tid=10] txn_cnt=99284,abort_cnt=57045
+[tid=11] txn_cnt=98691,abort_cnt=63593
+[tid=12] txn_cnt=99955,abort_cnt=65301
+[tid=13] txn_cnt=98806,abort_cnt=61795
+[tid=14] txn_cnt=100000,abort_cnt=63094
+[tid=15] txn_cnt=99060,abort_cnt=63421
+[summary] txn_cnt=1576477, abort_cnt=957809, run_time=38.245557, time_wait=6.066305, time_ts_alloc=0.192153, time_man=15.877173, time_index=1.615953, time_abort=6.430428, time_cleanup=4.232124, latency=0.000024, deadlock_cnt=0, cycle_detect=0, dl_detect_time=0.000000, dl_wait_time=0.000000, time_query=1.521390, debug1=0.000000, debug2=0.000000, debug3=0.000000, debug4=0.000000, debug5=0.000000

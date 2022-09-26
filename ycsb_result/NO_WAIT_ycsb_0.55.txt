@@ -1,22 +1,22 @@
 mem_allocator initialized!
 workload initialized!
-Query Queue Init Time 0.648027
+Query Queue Init Time 0.685605
 query_queue initialized!
-PASS! SimTime = 1602262092
-[tid=0] txn_cnt=98849,abort_cnt=32
-[tid=1] txn_cnt=93403,abort_cnt=21
-[tid=2] txn_cnt=99813,abort_cnt=31
-[tid=3] txn_cnt=86223,abort_cnt=27
-[tid=4] txn_cnt=100000,abort_cnt=31
-[tid=5] txn_cnt=93705,abort_cnt=36
-[tid=6] txn_cnt=87857,abort_cnt=33
-[tid=7] txn_cnt=89395,abort_cnt=31
-[tid=8] txn_cnt=87681,abort_cnt=92
-[tid=9] txn_cnt=87543,abort_cnt=25
-[tid=10] txn_cnt=91773,abort_cnt=23
-[tid=11] txn_cnt=93629,abort_cnt=22
-[tid=12] txn_cnt=87048,abort_cnt=36
-[tid=13] txn_cnt=98267,abort_cnt=30
-[tid=14] txn_cnt=87486,abort_cnt=28
-[tid=15] txn_cnt=97748,abort_cnt=24
-[summary] txn_cnt=1480420, abort_cnt=522, run_time=25.589139, time_wait=0.000000, time_ts_alloc=0.000000, time_man=14.134518, time_index=1.238769, time_abort=0.004357, time_cleanup=1.278977, latency=0.000017, deadlock_cnt=0, cycle_detect=0, dl_detect_time=0.000000, dl_wait_time=0.000000, time_query=0.037193, debug1=0.000000, debug2=0.000000, debug3=0.000000, debug4=0.000000, debug5=0.000000
+PASS! SimTime = 1841669728
+[tid=0] txn_cnt=99672,abort_cnt=22
+[tid=1] txn_cnt=88670,abort_cnt=24
+[tid=2] txn_cnt=99805,abort_cnt=25
+[tid=3] txn_cnt=88604,abort_cnt=36
+[tid=4] txn_cnt=100000,abort_cnt=25
+[tid=5] txn_cnt=96921,abort_cnt=30
+[tid=6] txn_cnt=93134,abort_cnt=41
+[tid=7] txn_cnt=99708,abort_cnt=27
+[tid=8] txn_cnt=99882,abort_cnt=26
+[tid=9] txn_cnt=99673,abort_cnt=36
+[tid=10] txn_cnt=99580,abort_cnt=25
+[tid=11] txn_cnt=86140,abort_cnt=18
+[tid=12] txn_cnt=99929,abort_cnt=37
+[tid=13] txn_cnt=99718,abort_cnt=43
+[tid=14] txn_cnt=88307,abort_cnt=88
+[tid=15] txn_cnt=88170,abort_cnt=30
+[summary] txn_cnt=1527913, abort_cnt=533, run_time=29.381562, time_wait=0.000000, time_ts_alloc=0.000000, time_man=16.286553, time_index=1.524733, time_abort=0.005126, time_cleanup=1.839895, latency=0.000019, deadlock_cnt=0, cycle_detect=0, dl_detect_time=0.000000, dl_wait_time=0.000000, time_query=0.041465, debug1=0.000000, debug2=0.000000, debug3=0.000000, debug4=0.000000, debug5=0.000000
